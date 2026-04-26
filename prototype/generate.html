@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>宠拍 AI · 图片生成</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page-generate">
+  <!-- 工作台顶部栏 -->
+  <header class="workbench-top">
+    <div class="wb-left">
+      <a href="index.html" class="back-btn">
+        <svg viewBox="0 0 14 14" width="12" height="12" style="vertical-align:-1px;margin-right:4px">
+          <path d="M9 2L4 7l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        返回
+      </a>
+      <h1 class="wb-title">AI 宠物商品图</h1>
+    </div>
+    <div class="wb-right">
+      <a href="#" class="history-link">
+        <svg viewBox="0 0 16 16" width="14" height="14" style="vertical-align:-2px;margin-right:4px">
+          <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M8 4v4l3 2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        历史记录
+      </a>
+      <div class="credits">
+        本次消耗 <strong>2</strong> 积分 · 剩余 <strong id="creditsLeft">28</strong>
+      </div>
+    </div>
+  </header>
+
+  <div class="workbench">
+    <!-- 左侧配置面板 -->
+    <aside class="config-panel">
+      <!-- 1. 上传商品图 -->
+      <div class="cfg-section">
+        <div class="cfg-title">① 上传商品图 <span class="req">必填</span></div>
+        <div class="upload-box" id="uploadBox">
+          <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden />
+          <div class="upload-placeholder" id="uploadPlaceholder">
+            <div class="upload-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 16V4"/>
+                <path d="M7 9l5-5 5 5"/>
+                <path d="M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/>
+              </svg>
+            </div>
+            <div class="upload-hint">点击或拖拽上传</div>
+            <div class="upload-sub">JPG / PNG / WebP，≤ 10MB</div>
+          </div>
+          <div class="upload-preview" id="uploadPreview" hidden>
+            <img id="previewImg" alt="商品图" />
+            <div class="upload-actions">
+              <button class="mini-btn" id="replaceBtn">替换</button>
+              <button class="mini-btn danger" id="removeBtn">删除</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 宠物/场景 Tab -->
+      <div class="cfg-section grow">
+        <div class="cfg-title">② 选择宠物 / 场景 <span class="req">必填</span></div>
+        <div class="primary-tabs">
+          <button class="pri-tab active" data-ptab="pet">宠物</button>
+          <button class="pri-tab" data-ptab="scene">场景</button>
+        </div>
+        <div class="sub-tabs" id="subTabs"></div>
+        <div class="card-grid" id="cardGrid"></div>
+      </div>
+
+      <!-- 3. 提示词（可展开） -->
+      <div class="prompt-box" id="promptBox" hidden>
+        <textarea
+          id="promptInput"
+          maxlength="100"
+          placeholder="描述你想要的效果，如：猫咪趴在猫粮旁边看镜头"
+        ></textarea>
+        <div class="prompt-count"><span id="promptCount">0</span>/100</div>
+      </div>
+
+      <!-- 3. 生成按钮（吸底） -->
+      <div class="generate-bar">
+        <button class="btn-generate" id="btnGenerate">
+          <span class="btn-label">开始生成</span>
+          <span class="cost">-2 积分</span>
+        </button>
+        <button class="btn-prompt" id="btnPrompt" title="自定义提示词" aria-label="自定义提示词">
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 14.5V16h1.5l8-8-1.5-1.5-8 8z"/>
+            <path d="M13 5.5l2-2 1.5 1.5-2 2"/>
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- 右侧结果区 -->
+    <section class="result-area" id="resultArea">
+      <!-- 初始态 -->
+      <div class="result-state state-empty" id="stateEmpty">
+        <div class="empty-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="60" height="60" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+            <rect x="8" y="12" width="48" height="40" rx="3"/>
+            <circle cx="22" cy="26" r="4"/>
+            <path d="M56 42L42 30 20 52"/>
+          </svg>
+        </div>
+        <h2>上传商品图，选择宠物和场景，开始生成</h2>
+        <p>AI 将在 30 秒内为你生成 2 张商品图，供对比选择</p>
+      </div>
+
+      <!-- 生成中 -->
+      <div class="result-state state-loading" id="stateLoading" hidden>
+        <div class="loading-anim">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <h2 id="loadingText">正在生成中，预计 30 秒...</h2>
+        <div class="progress">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <!-- 结果展示 -->
+      <div class="result-state state-done" id="stateDone" hidden>
+        <div class="result-head">
+          <h2>生成完成 · 共 2 张</h2>
+          <button class="btn-regen" id="btnRegen">
+            <svg viewBox="0 0 16 16" width="13" height="13" style="vertical-align:-2px;margin-right:4px" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 8a5.5 5.5 0 019.4-3.9L14 6"/>
+              <path d="M14 2v4h-4"/>
+              <path d="M13.5 8a5.5 5.5 0 01-9.4 3.9L2 10"/>
+              <path d="M2 14v-4h4"/>
+            </svg>
+            重新生成 · -2 积分
+          </button>
+        </div>
+        <div class="result-grid">
+          <div class="result-card" data-idx="0">
+            <img class="result-img" alt="结果 1" />
+            <div class="result-mask">
+              <button class="res-btn" data-act="preview">预览</button>
+              <button class="res-btn" data-act="download">下载</button>
+              <button class="res-btn" data-act="favorite">收藏</button>
+            </div>
+            <div class="result-tag">A</div>
+          </div>
+          <div class="result-card" data-idx="1">
+            <img class="result-img" alt="结果 2" />
+            <div class="result-mask">
+              <button class="res-btn" data-act="preview">预览</button>
+              <button class="res-btn" data-act="download">下载</button>
+              <button class="res-btn" data-act="favorite">收藏</button>
+            </div>
+            <div class="result-tag">B</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightboxClose">×</div>
+    <img id="lightboxImg" alt="preview" />
+  </div>
+
+  <!-- 登录弹窗 -->
+  <div class="modal" id="loginModal" hidden>
+    <div class="modal-card">
+      <div class="modal-close" id="loginClose">×</div>
+      <h2>登录后开始生成</h2>
+      <p class="modal-sub">新用户注册即送 10 积分</p>
+      <input type="tel" placeholder="手机号" class="modal-input" maxlength="11" />
+      <div class="modal-row">
+        <input type="text" placeholder="验证码" class="modal-input flex" maxlength="6" />
+        <button class="modal-code-btn">获取验证码</button>
+      </div>
+      <button class="modal-submit" id="loginSubmit">登录并生成</button>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="generate.js"></script>
+</body>
+</html>

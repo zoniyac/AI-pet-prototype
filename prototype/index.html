@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>宠拍 AI · 首页</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 顶部栏 -->
+  <header class="top-bar">
+    <a href="index.html" class="logo">
+      <span class="logo-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+          <circle cx="6" cy="9" r="2"/>
+          <circle cx="10" cy="5" r="2"/>
+          <circle cx="14" cy="5" r="2"/>
+          <circle cx="18" cy="9" r="2"/>
+          <path d="M12 10c-3 0-6 3-6 6 0 2 1.5 3 3 3 1 0 1.5-.5 3-.5s2 .5 3 .5c1.5 0 3-1 3-3 0-3-3-6-6-6z"/>
+        </svg>
+      </span>
+      <span class="logo-text">宠拍 AI</span>
+    </a>
+    <div class="top-right">
+      <div class="quota">剩余额度 <strong>28</strong></div>
+      <div class="avatar-wrap" id="avatarWrap">
+        <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=user&backgroundColor=4e9bff" alt="avatar" class="avatar" />
+        <span class="username">商家小王</span>
+        <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4l3 3 3-3" stroke="#666" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        <div class="dropdown" id="dropdown">
+          <a href="#">我的套餐</a>
+          <a href="#">退出登录</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- 左侧导航栏 -->
+    <aside class="side-nav">
+      <a class="nav-item active" href="index.html">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+            <path d="M3 10L10 3l7 7"/>
+            <path d="M5 9v8h10V9"/>
+          </svg>
+        </span>
+        <span>首页</span>
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+            <rect x="3" y="4" width="14" height="13" rx="1.5"/>
+            <path d="M7 4v13M13 4v13M3 10h14"/>
+          </svg>
+        </span>
+        <span>模板库</span>
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+            <path d="M3 6a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H4a1 1 0 01-1-1V6z"/>
+          </svg>
+        </span>
+        <span>资产管理</span>
+      </a>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="content">
+      <!-- Hero 区：图片生成 3 卡片 -->
+      <section class="hero">
+        <div class="hero-title">
+          <h2>商品图生成</h2>
+          <p>上传商品图，选择宠物和场景，30 秒生成爆款电商主图</p>
+        </div>
+        <div class="hero-cards">
+          <a class="hero-card" data-category="toy" href="generate.html?category=toy">
+            <div class="hero-card-bg" style="background-image:url('https://images.unsplash.com/photo-1605568427561-40dd23c2acea?w=800')"></div>
+            <div class="hero-card-mask"></div>
+            <div class="hero-card-body">
+              <div class="hero-card-tag">宠物玩具</div>
+              <h3>逗猫棒 · 漏食球 · 磨牙玩具</h3>
+              <button class="hero-cta">开始生成</button>
+            </div>
+          </a>
+          <a class="hero-card" data-category="travel" href="generate.html?category=travel">
+            <div class="hero-card-bg" style="background-image:url('https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800')"></div>
+            <div class="hero-card-mask"></div>
+            <div class="hero-card-body">
+              <div class="hero-card-tag">宠物出行</div>
+              <h3>推车 · 背包 · 提篮</h3>
+              <button class="hero-cta">开始生成</button>
+            </div>
+          </a>
+          <a class="hero-card" data-category="home" href="generate.html?category=home">
+            <div class="hero-card-bg" style="background-image:url('https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=800')"></div>
+            <div class="hero-card-mask"></div>
+            <div class="hero-card-body">
+              <div class="hero-card-tag">宠物居家</div>
+              <h3>猫抓板 · 趴趴窝 · 爬架</h3>
+              <button class="hero-cta">开始生成</button>
+            </div>
+          </a>
+        </div>
+
+        <div class="hero-subtitle">
+          <span>视频生成</span>
+          <span class="tag-soon">即将开放</span>
+        </div>
+        <div class="hero-cards video-cards">
+          <a class="hero-card video-card" data-category="toy">
+            <div class="hero-card-bg gradient-a"></div>
+            <div class="video-card-body">
+              <div class="video-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+                  <circle cx="16" cy="16" r="10"/>
+                  <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                  <path d="M16 6v4M16 22v4M6 16h4M22 16h4"/>
+                </svg>
+              </div>
+              <div class="video-text">
+                <h3 class="video-title">宠物玩具视频</h3>
+                <p class="video-sub">逗猫棒挥动、漏食球滚动，动态展示玩具乐趣</p>
+              </div>
+            </div>
+          </a>
+          <a class="hero-card video-card" data-category="travel">
+            <div class="hero-card-bg gradient-b"></div>
+            <div class="video-card-body">
+              <div class="video-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+                  <rect x="6" y="10" width="16" height="12" rx="2"/>
+                  <circle cx="11" cy="25" r="2.5"/>
+                  <circle cx="21" cy="25" r="2.5"/>
+                  <path d="M22 14l5-2v10"/>
+                </svg>
+              </div>
+              <div class="video-text">
+                <h3 class="video-title">宠物出行视频</h3>
+                <p class="video-sub">推车出游、背包外出，呈现真实使用场景</p>
+              </div>
+            </div>
+          </a>
+          <a class="hero-card video-card" data-category="home">
+            <div class="hero-card-bg gradient-c"></div>
+            <div class="video-card-body">
+              <div class="video-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+                  <path d="M6 14l10-8 10 8v12a2 2 0 01-2 2H8a2 2 0 01-2-2z"/>
+                  <path d="M13 28V18h6v10"/>
+                </svg>
+              </div>
+              <div class="video-text">
+                <h3 class="video-title">宠物居家视频</h3>
+                <p class="video-sub">猫咪抓板、趴窝休憩，温馨居家好物演绎</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- 宠物模特 -->
+      <section class="scroll-row" data-row="models">
+        <div class="row-head">
+          <h3>宠物模特</h3>
+          <div class="row-arrows">
+            <button class="arrow prev" aria-label="prev">
+              <svg viewBox="0 0 12 12" width="12" height="12"><path d="M8 2L4 6l4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="arrow next" aria-label="next">
+              <svg viewBox="0 0 12 12" width="12" height="12"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="row-track"></div>
+      </section>
+
+      <!-- 拍摄场景 -->
+      <section class="scroll-row" data-row="scenes">
+        <div class="row-head">
+          <h3>拍摄场景</h3>
+          <div class="row-arrows">
+            <button class="arrow prev" aria-label="prev">
+              <svg viewBox="0 0 12 12" width="12" height="12"><path d="M8 2L4 6l4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="arrow next" aria-label="next">
+              <svg viewBox="0 0 12 12" width="12" height="12"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="row-track"></div>
+      </section>
+
+      <!-- 爆款图片 -->
+      <section class="scroll-row" data-row="hot-images">
+        <div class="row-head">
+          <h3>爆款图片</h3>
+          <div class="row-arrows">
+            <button class="arrow prev" aria-label="prev">
+              <svg viewBox="0 0 12 12" width="12" height="12"><path d="M8 2L4 6l4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="arrow next" aria-label="next">
+              <svg viewBox="0 0 12 12" width="12" height="12"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="row-track"></div>
+      </section>
+
+      <!-- 爆款视频 -->
+      <section class="scroll-row" data-row="hot-videos">
+        <div class="row-head">
+          <h3>爆款视频</h3>
+          <div class="row-arrows">
+            <button class="arrow prev" aria-label="prev">
+              <svg viewBox="0 0 12 12" width="12" height="12"><path d="M8 2L4 6l4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="arrow next" aria-label="next">
+              <svg viewBox="0 0 12 12" width="12" height="12"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="row-track"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightboxClose">×</div>
+    <img id="lightboxImg" alt="preview" />
+  </div>
+
+  <script src="data.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>
